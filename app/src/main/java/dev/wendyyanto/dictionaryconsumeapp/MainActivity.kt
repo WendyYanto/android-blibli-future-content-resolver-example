@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dev.wendyyanto.dictionaryconsumeapp.adapter.DictionaryAdapter
 import dev.wendyyanto.dictionaryconsumeapp.databinding.ActivityMainBinding
 import dev.wendyyanto.dictionaryconsumeapp.model.DictionaryUiModel
+import dev.wendyyanto.dictionaryconsumeapp.utils.ContentResolverUtil
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,7 +28,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadDictionaries() {
-        // ToDo: Implement load dictionaries using content provider
+        dictionaries.addAll(ContentResolverUtil.getDictionaries(contentResolver))
     }
 
     private fun setupAdapters() {
