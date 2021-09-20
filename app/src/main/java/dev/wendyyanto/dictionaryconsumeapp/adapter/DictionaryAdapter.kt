@@ -6,7 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 import dev.wendyyanto.dictionaryconsumeapp.databinding.ItemDictionaryBinding
 import dev.wendyyanto.dictionaryconsumeapp.model.DictionaryUiModel
 
-class DictionaryAdapter(private val items: List<DictionaryUiModel>) :
+class DictionaryAdapter(
+    private val items: List<DictionaryUiModel>,
+    private inline val onClickListener: (index: Int) -> Unit
+) :
     RecyclerView.Adapter<DictionaryAdapter.DictionaryViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DictionaryViewHolder {
@@ -28,6 +31,10 @@ class DictionaryAdapter(private val items: List<DictionaryUiModel>) :
         fun bind(dictionaryUiModel: DictionaryUiModel) {
             with(viewBinding) {
                 tvTitle.text = dictionaryUiModel.title
+                tvTitle.setOnClickListener {
+                    onClickListener(adapterPosition)
+                }
+
                 tvDescription.text = dictionaryUiModel.description
             }
         }

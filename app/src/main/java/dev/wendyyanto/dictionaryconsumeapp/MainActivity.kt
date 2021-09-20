@@ -1,5 +1,6 @@
 package dev.wendyyanto.dictionaryconsumeapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -8,7 +9,6 @@ import dev.wendyyanto.dictionaryconsumeapp.databinding.ActivityMainBinding
 import dev.wendyyanto.dictionaryconsumeapp.model.DictionaryUiModel
 
 class MainActivity : AppCompatActivity() {
-
 
     private lateinit var viewBinding: ActivityMainBinding
 
@@ -23,7 +23,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(viewBinding.root)
 
         loadDictionaries()
-
         setupAdapters()
     }
 
@@ -33,9 +32,15 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupAdapters() {
         with(viewBinding.rvDictionaries) {
-            dictionaryAdapter = DictionaryAdapter(dictionaries)
+            dictionaryAdapter = DictionaryAdapter(dictionaries, ::goToDictionaryDetail)
             adapter = dictionaryAdapter
             layoutManager = LinearLayoutManager(this@MainActivity)
         }
+    }
+
+    private fun goToDictionaryDetail(index: Int) {
+        val intent = Intent(this, DetailActivity::class.java)
+        intent.putExtra("INDEX", index)
+        startActivity(intent)
     }
 }
